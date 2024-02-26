@@ -1,0 +1,22 @@
+﻿@page "/"
+@inherits HydratingComponent
+<PageTitle>Home</PageTitle>
+
+<h1>Hello, world!</h1>
+
+Welcome to your new app.
+
+@code
+{
+    protected override void Hydrating()
+    {
+        base.Hydrating();
+        Console.WriteLine("Hydrating");
+    }
+
+    protected override void PreRendering()
+    {
+        base.PreRendering();
+        Console.WriteLine("PreRendering");
+    }
+}
