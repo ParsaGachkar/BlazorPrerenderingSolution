@@ -8,15 +8,15 @@ Welcome to your new app.
 
 @code
 {
-    protected override void Hydrating()
+    protected override void OnHydrating()
     {
-        base.Hydrating();
-        Console.WriteLine("Hydrating");
+        base.OnHydrating();
+        Console.WriteLine("OnHydrating");
     }
 
-    protected override void PreRendering()
+    protected override void OnPreRendering()
     {
-        base.PreRendering();
-        Console.WriteLine("PreRendering");
+        base.OnPreRendering();
+        Console.WriteLine("OnPreRendering");
     }
 }

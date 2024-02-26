@@ -2,40 +2,51 @@
 
 namespace BlazorApp4
 {
-    public class HydratingComponent:ComponentBase
+    public class HydratingComponent:ComponentBase,IDisposable
     {
         [Inject] private IHttpContextAccessor HttpContextAccessor { get; set; } = default!;
 
         protected sealed override void OnInitialized()
         {
             base.OnInitialized();
-            if (!HttpContextAccessor.HttpContext!.Response.HasStarted) PreRendering();
-            else Hydrating();
+            if (!HttpContextAccessor.HttpContext!.Response.HasStarted) OnPreRendering();
+            else OnHydrating();
         }
 
-        protected virtual void Hydrating()
+        protected virtual void OnHydrating()
         {
         }
 
-        protected virtual void PreRendering()
+        protected virtual void OnPreRendering()
         {
         }
 
         protected sealed override async Task OnInitializedAsync()
         {
             await base.OnInitializedAsync();
-            if (!HttpContextAccessor.HttpContext!.Response.HasStarted) await PreRenderingAsync();
-            else await HydratingAsync();
+            if (!HttpContextAccessor.HttpContext!.Response.HasStarted) await OnPreRenderingAsync();
+            else await OnHydratingAsync();
         }
 
-        protected virtual Task HydratingAsync()
+        protected virtual Task OnHydratingAsync()
         {
             return Task.CompletedTask;
         }
 
-        protected virtual Task PreRenderingAsync()
+        protected virtual Task OnPreRenderingAsync()
         {
             return Task.CompletedTask;
+        }
+
+
+        public void Dispose()
+        {
+            OnDisposeAsync().RunSynchronously();
+        }
+
+        public async Task OnDisposeAsync()
+        {
+
         }
     }
 }
